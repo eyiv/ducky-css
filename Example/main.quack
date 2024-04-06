@@ -1,0 +1,8 @@
+#blue:
+color = blue
+
+.bigAndTall:
+bgColor = pink
+height = 75vh
+width = 100vw
+textAlign = center
