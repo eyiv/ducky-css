@@ -1,0 +1,35 @@
+{
+  "name": "ducky-css",
+  "version": "1.0.13",
+  "description": "This package lets you write CSS in a much faster way with a modification of the CSS syntax as well as allowing you to use JS syntax for CSS properties and providing shorter alternatives.",
+  "main": "quack.js",
+  "type": "module",
+  "types": "quack.d.ts",
+  "files": [
+    "quack.js",
+    "quack.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eyiv/ducky.git"
+  },
+  "keywords": [
+    "css",
+    "syntax",
+    "styling",
+    "concise",
+    "alternative",
+    "clean",
+    "cleaner",
+    "productivity"
+  ],
+  "author": "eyiv",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/eyiv/ducky/issues"
+  },
+  "homepage": "https://github.com/eyiv/ducky#readme"
+}
