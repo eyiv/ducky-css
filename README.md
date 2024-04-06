@@ -12,8 +12,15 @@ You can instead do:
 .class:
 bgColor = blue
 ```
+
+
+
+**Note**: All the CSS values you use are the same as in normal CSS
+
 ---
 #### Setup
+<sub> **Note**: If you don't want to read all this, there's an Example folder in the repository that has the setup and example usage there for you </sub>
+
 Add a script module to your HTML file:
 ```html
 <script src="index.js" type="module"></script>
@@ -22,7 +29,7 @@ Add a script module to your HTML file:
 Then create a file you will write the CSS in (You can write the CSS in basically any type of file as the quackparser merely takes in the text content of whatever file you link, but if you'd like to stay on the theme of ducks (🦆), then feel free to use file extensions such as .quack or .duck to keep it organized in your project.)
 
 Then in the JS file you linked in your HTML file, send the file content you'll write the CSS in to the quackparser:
- 
+
 ```js
 import QuackParser from './node_modules/ducky-css/quack.js';
 
