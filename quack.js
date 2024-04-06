@@ -6,12 +6,14 @@ class QuackParser {
     constructor() {
         this.patterns = [];
         this.quackMap = new Map();
+        this.shortHand = new Map();
         this.setPatterns();
         this.setRules();
     }
 
     setPatterns() {
-        this.patterns.push(/^.+?\s*=\s*.+$/);
+        this.patterns.push(/^.+?\s*=\s*.+$/); //<property> = <value> (whitespace not included)
+        this.patterns.push(/\w+;;/); //<shorthand>;;
     }
 
     //Map shortened syntax to its JS equivalent
@@ -43,6 +45,23 @@ class QuackParser {
         this.quackMap.set('marginBtm', 'marginBottom');
         this.quackMap.set('paddingBtm', 'paddingBottom');
         this.quackMap.set('zindex', 'zIndex');   
+
+        //Map combinations off CSS to a shorthand 1 line version
+        this.shortHand.set('centerItems', [
+            'display,flex',
+            'justifyContent,center',
+            'alignItems,center'
+        ]);
+        this.shortHand.set('fullSize', [
+            'width,100vw',
+            'height,100vh'
+        ]);
+        this.shortHand.set('centered', [
+            'position,absolute',
+            'top,50%',
+            'left,50%',
+            'transform,translate(-50%, -50%)'
+        ]);
     }
 
     //Match each line provided (other than comments or blank ones) against patterns
@@ -60,8 +79,10 @@ class QuackParser {
                 } else {
                     //Otherwise if it matches a property/value pattern, push it to the
                     //existing group
+                    let matchFound = false;
                     this.patterns.forEach(pattern => {
                         if (pattern.test(line.trim()) && group !== null) {
+                            matchFound = true;
                             group.push(line);
                             this.updateDOM(group);
                         }
@@ -80,18 +101,37 @@ class QuackParser {
         let querySelector = group[0]; //Element idenfifier (e.g., .class/#id)
         querySelector = querySelector.split(':');
         querySelector = querySelector[0].trim();
+        const targetElement = document.querySelectorAll(querySelector);
 
         //Parse the line of quack if it has not already been done so
         for (let i = 1; i < group.length; i++) {
             if (!checked.get(group[0]).includes(group[i])) {
-                let property = group[i].split('=');
-                let value = property[1].trim();
-                property = property[0].trim();
+                if (!this.patterns[1].test(group[i])) {
+                    let property = group[i].split('=');
+                    let value = property[1].trim();
+                    property = property[0].trim();
+    
+                    targetElement.forEach(element => {
+                        this.mapToCss(element, property, value);
+                    });
+                } else {
+                    if (group[i] !== undefined) {
+                        let shorthand = group[i].split(";;");
+                        shorthand = shorthand[0];
+                        if (this.shortHand.has(shorthand)) {
+                            this.shortHand.get(shorthand).forEach(s => {
+                                let property = s.split(",");
+                                let value = property[1];
+                                property = property[0];
 
-                const targetElement = document.querySelectorAll(querySelector);
-                targetElement.forEach(element => {
-                    this.mapToCss(element, property, value);
-                });
+                                targetElement.forEach(element => {
+                                    this.mapToCss(element, property, value);
+                                });
+                            })
+                            
+                        }
+                    }
+                }
                 checked.get(group[0]).push(group[i]); //Add the line so it doesn't get checked again
             } else {
             }
