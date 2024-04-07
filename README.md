@@ -15,20 +15,28 @@ bgColor = blue
 
 
 
-**Note**: All the CSS values you use are the same as in normal CSS
+**Note**: All the CSS values you use are the same as in standard CSS
 
 ---
 #### Setup
-<sub> **Note**: If you don't want to read all this, there's an Example folder in the repository that has the setup and example usage there for you </sub>
+<sub> **Note**: If you don't want to read all this, there's an [Example](https://github.com/eyiv/ducky-css/tree/main/Example) folder in the repository that has the setup and example usage there for you </sub>
 
-Add a script module to your HTML file:
-```html
-<script src="index.js" type="module"></script>
+Install ducky-css with the following command in a terminal in your project's root directory:
+```
+npm i ducky-css
 ```
 
-Then create a file you will write the CSS in (You can write the CSS in basically any type of file as the quackparser merely takes in the text content of whatever file you link, but if you'd like to stay on the theme of ducks (🦆), then feel free to use file extensions such as .quack or .duck to keep it organized in your project.)
+Then add a script module to your HTML file just before the ending \<body> tag:
+```html
+...
+<script src="index.js" type="module"></script>
+</body>
+```
 
-Then in the JS file you linked in your HTML file, send the file content you'll write the CSS in to the quackparser:
+Then create a file you will write ducky-css in. 
+*You can write ducky-css in basically any type of file as the quack parser merely takes in the text content of whatever file you link, but if you'd like to stay on the theme of ducks (🦆), feel free to use file extensions such as .quack or .duck to keep it organized in your project.
+
+Then, in the JS file you just linked in your HTML, send the content of the file you're writing ducky-css in:
 
 ```js
 import QuackParser from './node_modules/ducky-css/quack.js';
@@ -50,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ___
 
-#### Usage/Syntax
+#### [Usage/Syntax](https://github.com/eyiv/ducky-css/wiki/Introduction#general-syntax-rules)
 
 CSS groups are still started using .class or #id, but rather than using curly braces, simply add a colon at the end,
 ```
@@ -62,33 +70,42 @@ CSS groups are still started using .class or #id, but rather than using curly br
 
 You don't have to worry about any ending symbols to mark the end of a group, the parser knows when a group ends, but if you want to visually keep it organized simply add an empty line or two between each group.
 
-Most CSS properties have their same JS version,
+ducky-css properties have their names as camelCase, just like the JS property names,
 e.g.,
 ```
 .class:
 alignItems = center
 justifyContent = center
 ```
- But some also have shorter alternatives you can use; as a rule of thumb, any properties with the words background, image, or bottom all have shortend versions of those words within the property name
+ But I have also added [shorter alternatives](https://github.com/eyiv/ducky-css/wiki/Short%E2%80%90form-Alternatives) you can use; as a rule of thumb, any properties with the words background, image, or bottom all have shortend versions of those words within the property name
 
 e.g., bg, img, btm
 
-This is in the early stages and I plan on adding shorthand versions of combinations of commonly used CSS.
+---
 
-(Not yet implemented)
-For example, something like:
+#### [Shorthand Properties](https://github.com/eyiv/ducky-css/wiki/Shorthand-Properties)
+I have also added shorthand properties that combine commonly used groups of CSS into one line. 
+
+For example the shorthand property `centered;;` centers an element absolutely within its parent container:
 ```
-centered
+.parent:
+positon = relative
+
+#child:
+centered;;
 ```
-Will result in the following being applied to the element:
+This is equivalent to the following standard CSS:
 ```css
-display: flex;
-justify-content: center;
-align-items: center;
-```
-Documentation comes soon, but if you're not familiar with the JS css syntax it's basically the same names as the CSS version but camelCased and without the hyphens such as:
-```js
-alignItems
+.parent {
+    position: relative;
+}
+
+#child {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 ```
 
-Styles are applied to elements inline, and there are still a few kinks I need to iron out. 
+For more detail into the syntax, short-form, and shorthand properties, visit the [Wiki](https://github.com/eyiv/ducky-css/wiki/Introduction)
