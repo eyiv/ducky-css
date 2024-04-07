@@ -1,8 +1,26 @@
-#blue:
-color = blue
-
-.bigAndTall:
-bgColor = pink
-height = 75vh
+.sameCSS:
+height = 20vh
 width = 100vw
 textAlign = center
+bgColor = orange
+border = 2px solid black
+
+#red:
+color = red
+textAlign = center
+
+.centeredItems:
+centerItems;;
+fullSize;;
+bgColor = yellow
+
+#centeredElement:
+position = relative
+fullSize;;
+
+#centered:
+centered;;
+width = fit-content
+height = fit-content
+bgColor = green
+color = white
