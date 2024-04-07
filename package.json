@@ -1,7 +1,7 @@
 {
   "name": "ducky-css",
-  "version": "1.0.17",
-  "description": "This package lets you write CSS in a much faster way with a modification of the CSS syntax as well as allowing you to use JS syntax for CSS properties and providing shorter alternatives.",
+  "version": "1.0.18",
+  "description": "Write CSS faster with a modification of the CSS syntax combined with the camelCase for property names that JS uses, and apply multiple styles to an element using only 1 line of code.",
   "main": "quack.js",
   "type": "module",
   "types": "quack.d.ts",
